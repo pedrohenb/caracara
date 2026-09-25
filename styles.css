@@ -1,0 +1,164 @@
+/* Caracara — studio site (caracara.games)
+   Palette and shapes taken from the logo: cream paper, black ink, caracará orange,
+   angular cut forms and crest-like jagged edges, in the spirit of Northeastern woodcut prints. */
+
+:root {
+  --cream: #FDE8C8;
+  --ink: #15110D;
+  --orange: #EB7932;
+  --feather: #4B453D;
+
+  --bg: var(--cream);
+  --fg: var(--ink);
+  --muted: #4B453D;
+  --band: #000;
+  --band-fg: var(--cream);
+  --band-muted: #D9C6A5;
+  --foot: #000;
+
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --body: "Literata", Georgia, "Times New Roman", serif;
+  --jag: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='28' viewBox='0 0 240 28'%3E%3Cpath d='M0 28V14L22 4l8 12L58 0l6 18 32-12 8 14L140 2l6 14 30-8 10 14 30-18 10 14 14-4v14z'/%3E%3C/svg%3E");
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000; --fg: var(--cream); --muted: #D9C6A5;
+    --band: #000; --band-muted: #D9C6A5;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #000; --fg: var(--cream); --muted: #D9C6A5;
+  --band: #000; --band-muted: #D9C6A5;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 1.125rem/1.65 var(--body); }
+img, svg { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: .2em; }
+a:hover { color: inherit; text-decoration-color: currentColor; }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+
+.skip { position: absolute; left: 1rem; top: -4rem; z-index: 10; background: var(--ink); color: var(--cream); padding: .5rem 1rem; }
+.skip:focus { top: 1rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.wrap { width: min(1160px, 100% - 2.5rem); margin-inline: auto; }
+
+/* Jagged, crest-like top edge. The band's own background shows through the mask. */
+.jag { position: relative; }
+.jag::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: calc(100% - 1px); height: 28px;
+  background: inherit;
+  -webkit-mask: var(--jag) repeat-x 0 0 / 240px 28px;
+          mask: var(--jag) repeat-x 0 0 / 240px 28px;
+}
+
+/* Orange cut shard, like the facial patch in the mark */
+.shard { display: inline-block; width: .55em; aspect-ratio: 1; background: var(--orange); clip-path: polygon(0 22%, 74% 0, 100% 62%, 28% 100%); flex: none; }
+
+/* Hero plate: stays cream in both themes, like the printed logo */
+.plate { background: var(--cream); color: var(--ink); overflow: hidden; }
+.plate a { color: var(--ink); }
+.site-header { padding-block: 1rem; }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.home { display: flex; align-items: center; gap: .5rem; text-decoration: none; font: 800 1.5rem/1 var(--display); letter-spacing: .02em; text-transform: lowercase; }
+.home img { width: 42px; }
+.nav { display: flex; align-items: center; gap: .25rem 1.4rem; flex-wrap: wrap; justify-content: flex-end; }
+.nav a { font: 700 1.25rem/1 var(--display); text-transform: lowercase; text-decoration: none; padding: .5rem 0; }
+.nav a:hover { text-decoration: underline; text-decoration-color: var(--orange); }
+.theme-toggle { display: grid; place-items: center; width: 44px; height: 44px; border: 0; padding: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.theme-toggle svg { width: 22px; height: 22px; }
+.theme-toggle .moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .moon { display: block; }
+
+.hero .wrap {
+  display: grid; align-items: end; gap: 1rem 2rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  padding-top: clamp(1.5rem, 5vw, 3.5rem);
+}
+.hero-copy { align-self: center; padding-bottom: clamp(3rem, 8vw, 6rem); }
+.hero h1 { margin: 0 0 1.25rem; }
+.wordmark { width: min(440px, 100%); }
+.tagline { margin: 0; max-width: 24ch; font: 400 clamp(1.3rem, 2.6vw, 1.7rem)/1.35 var(--body); text-wrap: balance; }
+.origin { display: flex; align-items: center; gap: .6rem; margin: 1.5rem 0 0; font: 700 1.1rem/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--feather); }
+.hero-bird { justify-self: end; width: min(620px, 100%); margin-bottom: -4px; }
+
+/* Sections */
+.section { padding-block: clamp(3rem, 7vw, 5rem); }
+.section-title {
+  display: flex; align-items: center; gap: .9rem;
+  margin: 0 0 clamp(2rem, 5vw, 3rem);
+  font: 800 clamp(2.25rem, 6vw, 3.5rem)/.9 var(--display); text-transform: lowercase; letter-spacing: .01em;
+}
+
+/* Feather streaks, echoing the trails behind the wordmark */
+.streaks { display: flex; gap: 6px; transform: skewX(-28deg); margin-left: .5rem; }
+.streaks span { width: 42px; height: 8px; background: var(--feather); opacity: .8; }
+.streaks span:nth-child(2) { width: 30px; }
+.streaks span:nth-child(3) { width: 18px; }
+
+/* Games band */
+.games { background: var(--band); color: var(--band-fg); }
+.game-list { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(2.5rem, 6vw, 4rem); }
+.game-item { display: grid; gap: clamp(1.5rem, 4vw, 3rem); grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; }
+.capsule { display: block; border: 3px solid var(--band-fg); box-shadow: 10px 10px 0 var(--orange); background: #EADBB8; }
+.capsule img { width: 100%; aspect-ratio: 616 / 353; object-fit: cover; }
+.eyebrow { margin: 0 0 .4rem; font: 700 1.05rem/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--band-muted); }
+.game-item h3 { margin: 0 0 1.5rem; font: 800 clamp(2rem, 4.5vw, 3rem)/.95 var(--display); }
+.game-item p { margin: 0 0 1.75rem; max-width: 42ch; text-wrap: pretty; }
+.actions { display: flex; flex-wrap: wrap; gap: 1rem 1.25rem; align-items: center; }
+
+/* Stamp buttons: flat ink block with a hard offset print shadow */
+.btn {
+  display: inline-flex; align-items: center; gap: .55rem; min-height: 50px; padding: .6rem 1.3rem;
+  font: 800 1.35rem/1 var(--display); letter-spacing: .02em; text-decoration: none;
+  color: var(--ink); background: var(--orange);
+  border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--band-fg);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover { color: var(--ink); transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--band-fg); }
+.btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--band-fg); }
+.btn svg { width: 1.1em; height: 1.1em; fill: currentColor; }
+.link-arrow { font: 800 1.35rem/1 var(--display); text-decoration: underline; text-decoration-color: var(--orange); padding: .6rem 0; }
+
+/* About */
+.about-grid { display: grid; gap: 1.5rem 3rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); align-items: start; }
+.about-grid .section-title { margin: 0; }
+.about-grid p { margin: 0 0 1rem; max-width: 58ch; font-size: clamp(1.15rem, 2vw, 1.3rem); text-wrap: pretty; }
+.about-grid p:last-child { margin: 0; }
+
+/* Contact band: orange with black ink */
+.contact { background: var(--orange); color: var(--ink); }
+.contact a { color: var(--ink); text-decoration-color: var(--ink); }
+.contact .section-title .shard { background: var(--ink); }
+.contact-grid { display: grid; gap: 2rem 3rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+.contact-grid h3 { margin: 0 0 .5rem; font: 700 1.1rem/1 var(--display); letter-spacing: .16em; text-transform: uppercase; }
+.contact-grid a { font: 800 clamp(1.6rem, 4vw, 2.4rem)/1.1 var(--display); overflow-wrap: anywhere; }
+
+/* Footer */
+.site-footer { background: var(--foot); color: var(--cream); padding-block: 2.25rem 2.5rem; }
+.site-footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
+.site-footer small { font-size: 1rem; }
+.social { display: flex; flex-wrap: wrap; gap: .6rem; list-style: none; margin: 0; padding: 0; }
+.social a {
+  position: relative; display: grid; place-items: center; width: 46px; height: 46px;
+  color: var(--cream); border: 2px solid var(--cream);
+  transition: background .12s ease, color .12s ease;
+}
+.social a:hover, .social a:focus-visible { background: var(--orange); color: var(--ink); border-color: var(--orange); }
+.social svg { width: 20px; height: 20px; fill: currentColor; }
+
+@media (max-width: 800px) {
+  .hero .wrap, .game-item, .about-grid { grid-template-columns: 1fr; }
+  .hero-copy { padding-bottom: 0; }
+  .hero-bird { justify-self: center; width: min(460px, 92%); }
+  .nav a.hide-sm { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
